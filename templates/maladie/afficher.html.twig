@@ -1,0 +1,43 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Maladies{% endblock %}
+
+{% block body %}
+    <h1>Maladie </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom du maladie</th>
+                <th>Description</th>
+                <th>Type d'aniaml</th>
+                <th>Date de creation</th>
+                <th>Date de mise à jour</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for maladie in maladies %}
+            <tr>
+                <td>{{ maladie.id }}</td>
+                <td>{{ maladie.nom }}</td>
+                <td>{{ maladie.description }}</td>
+                <td>{{ maladie.typeAniaml }}</td>
+                <td>{{ maladie.dateCreation ? maladie.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>{{ maladie.dateMAJ ? maladie.dateMAJ|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_maladie_show', {'id': maladie.id}) }}">show</a>
+                    <a href="{{ path('app_maladie_edit', {'id': maladie.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_maladie_new') }}">Create new</a>
+{% endblock %}
