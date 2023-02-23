@@ -1,0 +1,161 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Actualite{% endblock %}
+
+{% block body %}
+    <!-- Blog Details Hero Begin -->
+   
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog__details__hero__text">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Details Hero End -->
+
+    <!-- Blog Details Section Begin -->
+    <section class="blog-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5 order-md-1 order-2">
+                    <div class="blog__sidebar">
+                        <div class="blog__sidebar__search">
+                            <form action="#">
+                                <input type="text" placeholder="Search...">
+                                <button type="submit"><span class="icon_search"></span></button>
+                            </form>
+                        </div>
+                        <div class="blog__sidebar__item">
+                            <h4>Types</h4>
+                           
+                        </div>
+                      {#  <div class="blog__sidebar__item">
+                            <h4>News</h4>
+                            <div class="blog__sidebar__recent">
+                            {% for ac in actualites %}
+                                <a href="#" class="blog__sidebar__recent__item">
+                                    <div class="blog__sidebar__recent__item__pic">
+                                        <img src="{{asset(ac.image)}}" alt="">
+                                    </div>
+                                    <div class="blog__sidebar__recent__item__text">
+                                        <br />{{ ac.theme }}</h6>
+                                        <span>{{ ac.getDateCreation() ? ac.getDateCreation()|date('Y-m-d') : '' }}</span>
+                                    </div>
+                                </a>
+                                {% endfor %} 
+                                
+                                
+                            </div>
+                        </div>
+                    
+                </div> #}
+                <div class="col-lg-8 col-md-7 order-md-1 order-1">
+                    <div class="blog__details__text">
+                        <img src="{{asset(ac.image)}}" alt="">
+                           <h4> Theme: {{ ac.theme }}</h4>
+                        <h3>ugagzrzvgafbmézgbrlézg.</h3>
+                        <p>{{ ac.contenu }}</p>
+                    
+                   <h2>Comments</h2>
+                     {% if ac.Commentaire|length > 0 %}
+                      <ul>
+                            {% for comment in ac.Commentaire %}
+                           <li>
+                                 {{ comment.text }}
+                              {#   {% if comment.getMembre() == app.user %}
+                                <a href="{{ path('comment_delete', {'id': comment.id}) }}">Delete</a>
+                                 {% endif %} #} 
+                            </li>
+                             {% endfor %}
+                     </ul>
+                     {% else %}
+                             <p>No comments</p>
+                      {% endif %}
+
+                   {{ form_start(formC,{'attr': {'novalidate': 'novalidate'}} ) }}
+                   
+                     {{ form_row(formC.text, {'label': false}) }}
+                    <button class="btn_Comment">{{ button_label|default('Comment') }}</button>
+                     {{ form_end(formC) }} 
+                     
+                     <div class="blog__comment__text">
+                       
+                    </div>
+
+                    <div class="blog__details__content">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="blog__details__author">
+                                    <div class="blog__details__author__pic">
+                                     {#<img src="{{asset ('front/img/blog/details/details-author.jpg') }}" alt="">#}   
+                                    </div>
+                                    <div class="blog__details__author__text">
+                                    {#   <h6>{{ac.Membre}}</h6>#} 
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="blog__details__widget">
+                                    <ul>
+                                        <li><span>Types:</span> {{ac.theme}}</li>
+                                    </ul>
+                                    <div class="blog__details__social">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                                        <a href="#"><i class="fa fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Details Section End -->
+
+    <!-- Related Blog Section Begin -->
+    
+    <!-- Related Blog Section End -->
+{% endblock %}
+{#<table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>Theme</th>
+                <td>{{ post.theme }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ post.image }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ post.contenu }}</td>
+            </tr>
+            <tr>
+                <th>Nbr_Vue</th>
+                <td>{{ post.nbrVue }}</td>
+            </tr>
+            <tr>
+                <th>Date_Creation</th>
+                <td>{{ post.dateCreation ? post.dateCreation|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_post_index') }}">back to list</a>
+
+    <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
+    {{ include('post/_delete_form.html.twig') }}
+#}
