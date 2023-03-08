@@ -1,0 +1,30 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Welcome to our shop
+
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="centered">Welcome to our shop</h1>
+        {% for produit in produit %}
+            <br >
+           
+
+                    <B style="color: black ; width: 500px" >Product ID : {{ produit.id }}  </B><br />
+                    <B style="color: black ; width: 500px" >Product: {{ produit.nom }} </B><br />
+                    
+     
+
+                   
+
+
+        {% else %}
+            <tr>
+                <h1> colspan="9">no records found</h1>
+            </tr>
+        {% endfor %}
+   <center><h5 class="centered" style="width: 500px; margin: 1px; margin-left: 450px"> {{ knp_pagination_render(produit) }}</h5></center>
+
+
+{% endblock %}

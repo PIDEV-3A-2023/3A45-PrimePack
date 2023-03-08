@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Produit index</h1>
-
+    <a href="{{ path('produit_pdf') }}" class="btn btn-primary">Export PDF</a>
     <table class="table">
         <thead>
             <tr>
@@ -29,7 +29,7 @@
                 
                 <td>{{ produit.disponibilite ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('app_produit_showb', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
                 </td>
             </tr>

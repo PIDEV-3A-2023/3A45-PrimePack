@@ -1,0 +1,6 @@
+# config/services.yaml
+
+services:
+  App\Service\StripeService:
+    arguments:
+      $secretKey: '%env(STRIPE_SECRET_KEY)%'
