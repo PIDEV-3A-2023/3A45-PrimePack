@@ -20,10 +20,10 @@
                                 </ul>
                                 <ul class="header-social">
                                     <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                    <li> <a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                                     <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li> <a href="#"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -36,15 +36,27 @@
                 <div class="menu-wrapper">
 
                     <div class="logo">
-                        <a href="#"><img style="height: 48px;width: 48px;" src="{{ asset('assets/img/logo/logo.png') }}" alt=""></a>
+                        <a href="#"><img style="height: 48px;width: 48px;" src="{{ asset('assets/img/logo/logo.png') }}"
+                                         alt=""></a>
                     </div>
 
                     <div class="main-menu d-none d-lg-block">
                         <nav>
                             <ul id="navigation">
                                 <li><a href="#">Actualite</a></li>
-                                <li><a href="#">Evenement</a></li>
-                                <li><a href="#">Consultation</a></li>
+                                <li><a href="{{ path('app_evenemennt_front_index') }}">Evenment<i
+                                                class="fas fa-angle-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="{{ path('app_evenemennt_front_index_past') }}">historique</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="{{ path('app_ticket_front_index') }}">Mes Tickets<i
+                                                class="fas fa-angle-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="{{ path('app_evenemennt_front_index_past') }}">historique</a></li>
+                                    </ul>
+                                </li>
                                 <li class="new"><a href="#">Catalogue</a></li>
                                 <li><a href="#">Contact</a></li>
                                 <li><a href="#">Operation</a>
@@ -72,7 +84,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li> <a href="#"><span class="flaticon-user"></span></a></li>
+                            <li><a href="#"><span class="flaticon-user"></span></a></li>
                             <li class="cart"><a href="#"><span class="flaticon-shopping-cart"></span></a>
                             </li>
                         </ul>
@@ -93,7 +105,7 @@
             </div>
         </div>
         <div class="header-bottom text-center">
-            <p> <a href="#" class="browse-btn"></a></p>
+            <p><a href="#" class="browse-btn"></a></p>
         </div>
     </div>
 </header>

@@ -39,6 +39,41 @@ class TicketRepository extends ServiceEntityRepository
         }
     }
 
+    public function getTicketHistory()
+    {
+
+        $atEndOfDay = new \DateTime();
+
+        $atEndOfDay->setTime(0, 0, 0, 0);
+
+
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.membre = :membre')
+            ->setParameter('valDeb', $atEndOfDay)
+            ->setParameter('membre', 2)
+            ->orderBy('t.date_debut')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTicketfut()
+    {
+
+        $atEndOfDay = new \DateTime();
+
+        $atEndOfDay->setTime(0, 0, 0, 0);
+
+
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.evenement.date > :valDeb')
+            ->andWhere('t.membre = :membre')
+            ->setParameter('valDeb', $atEndOfDay)
+            ->setParameter('membre', 2)
+            ->orderBy('t.date_debut')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Ticket[] Returns an array of Ticket objects
 //     */

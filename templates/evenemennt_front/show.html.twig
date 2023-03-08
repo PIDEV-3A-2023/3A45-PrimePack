@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<title>Evenement</title>
+
+{% block body %}
+    <h1>Evenement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ evenement.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ evenement.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ evenement.description }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Sponsor</th>
+                <td>{{ evenement.sponsor }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_evenemennt_front_index') }}">back to list</a>
+
+    <a href="{{ path('app_evenemennt_front_edit', {'id': evenement.id}) }}">edit</a>
+
+    {{ include('evenemennt_front/_delete_form.html.twig') }}
+{% endblock %}

@@ -6,6 +6,8 @@ use App\Repository\TicketRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
@@ -13,24 +15,39 @@ class Ticket
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("ticket")]
     private ?int $id = null;
 
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
+    #[Groups("ticket")]
     private ?string $code = null;
 
     #[Assert\NotBlank]
     #[ORM\Column]
+    #[Groups("ticket")]
     private ?float $prix = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups("ticket")]
     private ?\DateTimeInterface $date_debut = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups("ticket")]
     private ?\DateTimeInterface $date_fin = null;
 
     #[ORM\ManyToOne(inversedBy: 'ticket')]
     private ?Evenement $evenement = null;
+
+    public ?int $nbJour = 0;
+
+    #[ORM\ManyToOne]
+    private ?Membre $membre = null;
+
+
+    public function __construct()
+    {
+    }
 
     public function getId(): ?int
     {
@@ -96,4 +113,18 @@ class Ticket
 
         return $this;
     }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?Membre $membre): self
+    {
+        $this->membre = $membre;
+
+        return $this;
+    }
+
+
 }

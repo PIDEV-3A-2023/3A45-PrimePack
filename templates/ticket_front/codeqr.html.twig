@@ -1,0 +1,13 @@
+{% extends 'front/base.html.twig' %}
+    {% block body %}
+        <div class="container" style="margin-top: 20px; display: flex;
+    justify-content: center;">
+            {{ barcode({code: "{tiketid:"~ticket.id ~",
+evnementId: "~ ticket.evenement.id ~"
+nom evenement: "~ticket.evenement.nom~"
+membre id: "~ticket.membre.id~"
+nom membre: "~ticket.membre.nom~"
+prenom membre: "~ticket.membre.prenom~"}", type: 'qrcode', format: 'svg', width: 10, height: 10, color: 'green'}) }}
+        </div>
+    {% endblock %}
+

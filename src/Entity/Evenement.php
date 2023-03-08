@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EvenementRepository::class)]
 class Evenement
@@ -15,31 +16,36 @@ class Evenement
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("evenement")]
     private ?int $id = null;
 
-    
+
     #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
+    #[Groups("evenement")]
     private ?string $nom = null;
 
-    #[Assert\Length(min:20,minMessage :"la description doit contenir au minimum {{ limit }} caractères.")]
+    #[Assert\Length(min: 20, minMessage: "la description doit contenir au minimum {{ limit }} caractères.")]
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups("evenement")]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups("evenement")]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups("evenement")]
     private ?string $sponsor = null;
 
     #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: Ticket::class)]
     private Collection $ticket;
 
-    #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: Membre::class)]
-    private Collection $membres;
-
-    #[ORM\ManyToOne(inversedBy: 'evenements')]
-    private ?Membre $membre = null;
+    #[ORM\Column]
+    #[Assert\Positive]
+    #[Assert\NotBlank]
+    #[Groups("evenement")]
+    private ?int $nbPlace = null;
 
     public function __construct()
     {
@@ -130,35 +136,6 @@ class Evenement
         return $this;
     }
 
-    /**
-     * @return Collection<int, Membre>
-     */
-    public function getMembres(): Collection
-    {
-        return $this->membres;
-    }
-
-    public function addMembre(Membre $membre): self
-    {
-        if (!$this->membres->contains($membre)) {
-            $this->membres->add($membre);
-            $membre->setEvenement($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMembre(Membre $membre): self
-    {
-        if ($this->membres->removeElement($membre)) {
-            // set the owning side to null (unless already changed)
-            if ($membre->getEvenement() === $this) {
-                $membre->setEvenement(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getMembre(): ?Membre
     {
@@ -171,8 +148,21 @@ class Evenement
 
         return $this;
     }
+
     public function __toString(): string
     {
         return $this->nom;
+    }
+
+    public function getNbPlace(): ?int
+    {
+        return $this->nbPlace;
+    }
+
+    public function setNbPlace(int $nbPlace): self
+    {
+        $this->nbPlace = $nbPlace;
+
+        return $this;
     }
 }

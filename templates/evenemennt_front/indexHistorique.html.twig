@@ -1,0 +1,28 @@
+{% extends 'front/base.html.twig' %}
+
+{% block body %}
+
+    <section class="items-product1 pt-30">
+        <div class="container">
+            <h1>Historique d'Evnement</h1>
+
+            <div class="row">
+                {% for evenement in evenements %}
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-items mb-20">
+                            <div class="items-img">
+                                <img src="{{ asset('assets/img/gallery/items1.jpg') }}" alt="">
+                            </div>
+                            <div class="items-details">
+                                <h4><a href="pro-details.html">{{ evenement.nom }}</a></h4>
+                                <h5 style="color: white"><a href="pro-details.html">{{ evenement.description }} </a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+    </section>
+
+{% endblock %}
