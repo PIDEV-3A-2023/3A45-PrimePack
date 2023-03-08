@@ -10,21 +10,7 @@
 
             <div class="col-12">
                 <div class="card-box">
-                    <div class="dropdown pull-right">
-                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-vertical"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Another action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Something else</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
-                        </div>
-                    </div>
+
                     <h4 class="m-t-0 header-title">Les Ordonnances</h4>
                     <p class="text-muted font-14 m-b-20">
 
@@ -49,8 +35,13 @@
                 <td>{{ ordonnance.description }}</td>
                 <td>{{ ordonnance.traitement }}</td>
                 <td>
-                    <a href="{{ path('app_ordonnance_show', {'id': ordonnance.id}) }}">show</a>
-                    <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}">edit</a>
+
+                    <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}"> <button class="btn btn-outline-primary" > update</button></a>
+
+
+                    <a href="{{ path('app_ordonnance_show', {'id': ordonnance.id}) }}"><button class="btn btn-outline-primary" > show</button></a>
+                    <a href="{{ path('app_ordonnance_delete', {'id': ordonnance.id}) }}"><button class="btn btn-outline-primary" > delete</button></a>
+
                 </td>
             </tr>
         {% else %}
@@ -65,5 +56,5 @@
     </div>
 </div>
 
-    <a href="{{ path('app_ordonnance_new') }}">Create new</a>
+    <a href="{{ path('app_ordonnance_new') }}"><button class="btn btn-outline-primary" >Create new</button> </a>
 {% endblock %}

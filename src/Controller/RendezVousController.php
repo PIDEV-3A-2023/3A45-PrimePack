@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\RendezVous;
 use App\Form\RendezVousType;
 use App\Repository\RendezVousRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +15,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class RendezVousController extends AbstractController
 {
     #[Route('/', name: 'app_rendez_vous_index', methods: ['GET'])]
-    public function index(RendezVousRepository $rendezVousRepository): Response
-    {
+    public function index(Request $request,RendezVousRepository $rendezVousRepository,PaginatorInterface $paginator): Response
+    {   $rendezVous=$rendezVousRepository->findAll();
+        $rendezVous = $paginator->paginate(
+            $rendezVous,
+            $request->query->getInt('page', 1),
+            5
+        );
         return $this->render('rendez_vous/index.html.twig', [
-            'rendez_vouses' => $rendezVousRepository->findAll(),
+            'rendez_vouses' => $rendezVous,
         ]);
     }
 

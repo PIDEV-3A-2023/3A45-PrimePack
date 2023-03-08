@@ -6,6 +6,7 @@ use App\Entity\Animal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
  * @extends ServiceEntityRepository<Animal>
  *
@@ -38,6 +39,36 @@ class AnimalRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function searchByNameAndBreed(string $nom, string $race)
+    {
+        $queryBuilder = $this->createQueryBuilder('a');
+        $queryBuilder->where('a.nom = :nom')
+            ->andWhere('a.race = :race')
+            ->setParameter('nom', $nom)
+            ->setParameter('race', $race);
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+    public function chartRepository()
+    {
+        $qb = $this->createQueryBuilder('r');
+
+        $qb->select('r.race, COUNT(r.id) as count')
+            ->groupBy('r.race');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findEntitiesByString($str){
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT r
+                FROM App\Entity\Animal r
+                WHERE (r.race LIKE :str) OR (r.nom LIKE :str)'
+            )
+            ->setParameter('str', '%'.$str.'%')
+            ->getResult();
+    }
 
 //    /**
 //     * @return Animal[] Returns an array of Animal objects
@@ -63,4 +94,12 @@ class AnimalRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+
+
+
+
+
+
 }

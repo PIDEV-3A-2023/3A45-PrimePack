@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 #[Route('/ordonnance')]
 class OrdonnanceController extends AbstractController
@@ -20,6 +22,10 @@ class OrdonnanceController extends AbstractController
             'ordonnances' => $ordonnanceRepository->findAll(),
         ]);
     }
+
+
+
+
 
     #[Route('/new', name: 'app_ordonnance_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OrdonnanceRepository $ordonnanceRepository): Response
@@ -75,4 +81,45 @@ class OrdonnanceController extends AbstractController
 
         return $this->redirectToRoute('app_ordonnance_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    #[Route('/ordonance/pdf/{id}', name: 'show_pdf')]
+    public function generatePdfAction($id)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+        $ordonnance = $em->getRepository(Ordonnance::class)->find($id);
+
+
+        $html = $this->renderView('ordonnance/listo.html.twig', [
+
+            'Date'=>$ordonnance->getDate(),
+            'Description' => $ordonnance->getDescription(),
+            'Traitement' => $ordonnance->getTraitement(),
+            'NomAnimal' => $ordonnance->getRendezvous()->getAnimal()->getNom()
+
+
+
+
+        ]);
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $filename = 'Ordonannce.pdf';
+
+        return new Response(
+            $dompdf->output(),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="'.$filename.'"',
+            ]
+        );
+    }
+
+
 }

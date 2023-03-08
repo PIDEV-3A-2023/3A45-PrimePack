@@ -43,7 +43,7 @@
     <script src="asset('back-assets/lib/tempusdominus/js/moment.min.js')}}"></script>
     <script src="asset('back-assets/lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
     <script src="asset('back-assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-
+             <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.1/dist/echarts.min.js"></script>
     <!-- Template Javascript -->
     <script src="asset('back-assets/js/main.js')}}"></script>
     {% endblock %}
@@ -79,16 +79,20 @@
                             <a href="#" class="dropdown-item">Ajouter utilisateur</a>
                             <a href="#" class="dropdown-item">Liste des utilisateurs</a>
                         </div>
+
+                        </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Actualite</a>
                             <div class="dropdown-menu bg-transparent border-0">
                             <a href="{{path ('app_actualite_new')}}" class="dropdown-item">Ajouter Actualite</a>
                             <a href="{{path ('app_actualite_index')}}" class="dropdown-item">Liste des Actualites</a>
                         </div>
+                        </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Commentaire</a>
                             <div class="dropdown-menu bg-transparent border-0">
                             <a href="{{path ('app_commentaire_index')}}" class="dropdown-item">Liste des Commentaires</a>
+                        </div>
                         </div>
                         
                         <div class="nav-item dropdown">
@@ -97,11 +101,13 @@
                             <a href="#" class="dropdown-item">Ajouter produit</a>
                             <a href="#" class="dropdown-item">Liste des produits</a>
                         </div>
+                        </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Categorie</a>
                             <div class="dropdown-menu bg-transparent border-0">
                             <a href="#" class="dropdown-item">Ajouter categorie</a>
                             <a href="#" class="dropdown-item">Liste des categories</a>
+                        </div>
                         </div>
                         
                         <div class="nav-item dropdown">
@@ -110,11 +116,13 @@
                             <a href="#" class="dropdown-item">Ajouter evennement</a>
                             <a href="#" class="dropdown-item">Liste des evennements</a>
                         </div>
+                        </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Ticket</a>
                             <div class="dropdown-menu bg-transparent border-0">
                             <a href="#" class="dropdown-item">Ajouter ticket</a>
                             <a href="#" class="dropdown-item">Liste des tickets</a>
+                        </div>
                         </div>
                        
                         <div class="nav-item dropdown">
@@ -123,10 +131,12 @@
                             <a href="{{path ('app_operation_new')}}" class="dropdown-item">Ajouter operation</a>
                             <a href="{{path ('app_operation_index')}}" class="dropdown-item">Liste des operations</a>
                         </div>
+                        </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer maladie</a>
                             <div class="dropdown-menu bg-transparent border-0">
                             <a href="#" class="dropdown-item">Liste des maladies</a>
+                        </div>
                         </div>
                          <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer animal</a>
@@ -134,15 +144,18 @@
 
                             <a href="{{ path('app_animal_index') }}" class="dropdown-item">Liste des animals</a>
                         </div>
+                         </div>
                          <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer rendez vous</a>
                             <div class="dropdown-menu bg-transparent border-0">
                             <a href="{{ path('app_rendez_vous_index') }}" class="dropdown-item">Liste des rendez vous</a>
                         </div>
+                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Ordonnance</a>
                             <div class="dropdown-menu bg-transparent border-0">
                             <a href="{{ path('app_ordonnance_index') }}" class="dropdown-item">Liste des ordonnancess</a>
+                        </div>
                         </div>
                     </div>
                     {# <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
@@ -159,7 +172,10 @@
                         </div>
                     </div>#}
                 </div>
+
+
             </nav>
+        </div>
         </div>
         <!-- Sidebar End -->
 
@@ -175,7 +191,8 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
+                    <input class="form-control border-0" type="search" placeholder="Search" >
+
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -272,6 +289,57 @@
             <!-- Recent Sales End -->
  <div class="container-fluid pt-4 px-4">
                 {% block body %}
+                    <div class="card-body">
+                        <div id="myChart" class="align-content-center" style="width: 300px; height: 500px;"></div>
+                        {% set data = [] %}
+                        {% for result in results %}
+                            {% set data = data|merge([{value: result.valeur, name: result.value}]) %}
+                        {% endfor %}
+
+                        {% block jsChart %}
+                            {#<script src="node_modules/echarts/dist/echarts.min.js"></script> #}
+                            {#  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>#}
+                            <script>
+                                var Chart = echarts.init(document.getElementById('myChart'));
+                                Chart.setOption({
+                                    title: {
+                                        text: 'Animaux  '
+                                    },
+                                    toolbox: {
+                                        show: true,
+                                        feature: {
+                                            mark: { show: true },
+                                            dataView: { show: true, readOnly: true },
+
+                                            saveAsImage: { show: true }
+                                        }
+                                    },
+                                    tooltip: {
+                                        trigger: 'item'
+                                    },
+                                    series: [{
+                                        name: 'Race',
+                                        type: 'pie',
+
+                                        data: [  {% for result in results %}
+
+                                            {value: {{ result.valeur }}, name: '{{ result.value }}'},
+                                            {% endfor %}
+                                        ], emphasis: {
+                                            itemStyle: {
+                                                shadowBlur: 10,
+                                                shadowOffsetX: 0,
+                                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                            }
+                                        }
+
+                                    }]
+                                });
+
+                            </script>
+
+                    </div>
+                {% endblock %}
                 {% endblock %}
             </div>
 
@@ -299,6 +367,6 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
-  
+
 
 </html>

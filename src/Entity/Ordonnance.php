@@ -16,6 +16,8 @@ class Ordonnance
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+
+    #[Assert\GreaterThanOrEqual("today",message: "le date n'est pas valide")]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TEXT)]

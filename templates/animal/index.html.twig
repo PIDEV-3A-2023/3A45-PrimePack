@@ -10,24 +10,70 @@
 
             <div class="col-12">
                 <div class="card-box">
-                    <div class="dropdown pull-right">
-                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-vertical"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Another action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Something else</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
-                        </div>
-                    </div>
+
                     <h4 class="m-t-0 header-title">List Animal</h4>
                     <p class="text-muted font-14 m-b-20">
 
+                    <div class="sidebar-search">
+
+                        <div class="input-group custom-search-form">
+
+                            <input type="text" id="search" class="form-control" placeholder="Rechercher animal">
+                        </div>
+                        <!-- /input-group -->
+                    </div>
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="#"><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level" id="entitiesNav"><br>
+                            </ul>
+                        </li>
+                    </ul><br><br><br><br>
+
+                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+                    <script type="text/javascript">
+                        jQuery(document).ready(function() {
+                            var searchRequest = null;
+
+                            $("#search").keyup(function() {
+                                var minlength = 1;
+                                var that = this;
+                                var value = $(this).val();
+                                var entitySelector = $("#entitiesNav").html('');
+                                if (value.length >= minlength ) {
+                                    if (searchRequest != null)
+                                        searchRequest.abort();
+                                    searchRequest = $.ajax({
+                                        type: "GET",
+                                        url: "{{ path('animal_search') }}",
+                                        data: {
+                                            'q' : value
+                                        },
+                                        dataType: "text",
+                                        success: function(msg){
+                                            //we need to check if the value is the same
+                                            if (value===$(that).val()) {
+                                                var result = JSON.parse(msg);
+                                                $.each(result, function(key, arr) {
+                                                    $.each(arr, function(id, value) {
+                                                        if (key === 'animals') {
+                                                            if (id !== 'error') {
+                                                                console.log(value);
+                                                                entitySelector.append('<li><b>'+'</b><a href="/animal/'+id+'">'+value[0]+'</a></li>');
+                                                            } else {
+                                                                entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    </script>
 
                     <table class="table">
                         <thead>
@@ -51,11 +97,12 @@
                                 <td>{{ animal.age }}</td>
                                 <td>{{ animal.description }}</td>
                                 <td>
-                                    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}"> <button class="btn btn-success" > update</button></a>
+                                    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}"> <button class="btn btn-outline-primary" > update</button></a>
 
 
-                                    <a href="{{ path('app_animal_show', {'id': animal.id}) }}"><button class="btn btn-dark" > show</button></a>
-                                    <a href="{{ path('app_animal_delete', {'id': animal.id}) }}"><button class="btn btn-dark" > delete</button></a>
+                                    <a href="{{ path('app_animal_show', {'id': animal.id}) }}"><button class="btn btn-outline-primary" > show</button></a>
+                                    <a href="{{ path('app_animal_delete', {'id': animal.id}) }}"><button class="btn btn-outline-primary" > delete</button></a>
+
                                 </td>
                             </tr>
 

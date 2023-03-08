@@ -20,6 +20,7 @@ class Animal
 
     #[ORM\Column(length: 255)]
      #[Assert\NotBlank(message:"le nom doit etre existe")]
+
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]

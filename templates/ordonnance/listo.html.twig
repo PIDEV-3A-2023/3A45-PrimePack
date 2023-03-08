@@ -1,0 +1,40 @@
+
+
+{% block body %}
+
+
+<h1 align="center">Ordonnance</h1><hr>
+
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+
+                            <th>Date : {{ Date | date('d-m-y') }} </th>
+
+                        </tr>
+                        <tr>
+
+
+                            <th> Description : {{ Description }} </th>
+
+                        </tr> <tr>
+
+
+                            <th> Traitement : {{ Traitement }} </th>
+
+                        </tr> <tr>
+
+
+                            <th> Nom Animal : {{ NomAnimal }} </th>
+                        </tr>
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

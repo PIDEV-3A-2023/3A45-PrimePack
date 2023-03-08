@@ -1,4 +1,65 @@
-{{ form_start(form) }}
-    {{ form_widget(form.date) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+{%block body%}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-md-12"  style="display: flex; justify-content: center;align-items:center;width: 100%" >
+                <div class="card-box">
+
+
+
+                    {{ form_start(form, {'attr': {novalidate: 'novalidate'}}) }}
+
+
+                    <div class="form-group">
+                        <label for="nom">Date</label>
+
+                        {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.date, {'attr': {'class': 'text-danger'}}) }}
+
+
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">Duree</label>
+
+                        <div class="form-group">
+                            {{ form_widget(form.duree, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.duree, {'attr': {'class': 'text-danger'}}) }}
+
+
+
+                        </div>
+                        <div class="form-group">
+
+                            <label for="nom">Animal</label>
+
+                            {{ form_widget(form.animal, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.animal, {'attr': {'class': 'text-danger'}}) }}
+
+
+                        </div>
+
+
+                        <div class="form-group text-right m-b-0">
+                            <button class="btn btn-outline-primary">{{ button_label|default('Save') }}</button>
+
+
+                        </div>
+
+                        {{form_end(form)}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{%endblock%}
