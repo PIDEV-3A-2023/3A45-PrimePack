@@ -17,70 +17,50 @@ class Maladie
     #[ORM\GeneratedValue]
     #[ORM\Column]
     
-      /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups("post:read")
-     */
+  
     private ?int $id = null;
     
     
     
    
-    #[ORM\Column(length: 255)]
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(
-     *     min = 3,
-     *     max = 50,
-     *     minMessage= "Le nom  est trop court",
-     *     maxMessage="Le nom est trop long")
-     * @Assert\NotBlank c
-     * @Groups("post:read")
-     */
+   
+    
+    #[ORM\Column(type:"string", length:255)]
+     #[Assert\Length(
+          min : 3,
+          max : 50,
+          minMessage: "Le nom  est trop court",
+          maxMessage:"Le nom est trop long")]
+      
+     
     private ?string $nom = null;
      
 
     #[ORM\Column(type: Types::TEXT)]
-     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 7,
-     *      max = 100,
-     *      minMessage = "La description doit contenir au moins {{ limit }} caractères",
-     *      maxMessage = "La description doit contenir moins de {{ limit }} caractères"
-     * )
-     */
+     
+
+    #[Assert\NotBlank]
+    #[Assert\Length(
+          min : 7,
+          max : 100,
+          minMessage : "La description doit contenir au moins {{ limit }} caractères",
+          maxMessage : "La description doit contenir moins de {{ limit }} caractères"
+     )]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    /**
-     * @Assert\NotBlank(message="dog/cat")
-     * @Assert\Choice({"dog", "cat"})
-     */
+    
+     #[Assert\NotBlank(message:"Chat/Chien/Oiseau/Autre")]
+     #[Assert\Choice(['Chien', 'Chat', 'Oiseau', 'Autre'])]
+     
     private ?string $type_aniaml = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    /**
-     * @Assert\NotBlank
-     * @Assert\DateTime
-     * @Assert\LessThanOrEqual(
-     *     "today",
-     *     message="La date de création de la maladie ne peut pas être postérieure à aujourd'hui"
-     * )
-     */
+  
     private ?\DateTimeInterface $date_creation = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    /**
-     * @Assert\DateTime
-     * @Assert\LessThanOrEqual(
-     *     "today",
-     *     message="La date de mise à jour de la maladie ne peut pas être postérieure à aujourd'hui"
-     * )
-     */
+    
     private ?\DateTimeInterface $date_MAJ = null;
 
     #[ORM\OneToMany(mappedBy: 'maladie', targetEntity: Operation::class)]

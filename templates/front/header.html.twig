@@ -43,8 +43,19 @@
                         <nav>
                             <ul id="navigation">
                                 <li><a href="#">Actualite</a></li>
-                                <li><a href="#">Evenement</a></li>
-                                <li><a href="#">Consultation</a></li>
+                                <li><a href="{{ path('app_evenemennt_front_index') }}">Evenment<i
+                                                class="fas fa-angle-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="{{ path('app_evenemennt_front_index_past') }}">historique</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="{{ path('app_ticket_front_index') }}">Mes Tickets<i
+                                                class="fas fa-angle-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="{{ path('app_evenemennt_front_index_past') }}">historique</a></li>
+                                    </ul>
+                                </li>
                                 <li class="new"><a href="#">Catalogue</a></li>
                                 <li><a href="#">Contact</a></li>
                                 <li><a href="#">Operation</a>

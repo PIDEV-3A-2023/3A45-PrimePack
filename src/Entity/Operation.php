@@ -22,70 +22,60 @@ class Operation
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-     /**
-     * @Assert\NotBlank
-     * @Assert\DateTime
-     * @Assert\GreaterThanOrEqual(
-     *     "today",
-     *     message="La date de l'opération ne peut pas être antérieure à aujourd'hui"
-     * )
-     * @Assert\LessThanOrEqual(
-     *     "+1 year",
-     *     message="La date de l'opération ne peut pas être postérieure à un an à partir d'aujourd'hui"
-     * )
-     */
-    private ?\DateTimeInterface $date_operation = null;
+     
+    
+  
+    public ?\DateTimeInterface $date_operation = null;
 
     #[ORM\Column(length: 255)]
-    /**
-     * @Assert\NotBlank
-     * @Assert\Choice(choices={"consultation", "vaccination", "surgury"})
-     */
-    private ?string $type_operation = null;
+    
+     #[Assert\NotBlank(message:"Operation/Vaccination/Surgury/Autre")]
+     #[Assert\Choice(['Operation', 'Vaccination', 'Surgury'])]
+    
+    public ?string $type_operation = null;
 
     #[ORM\Column(length: 255)]
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
-     *      minMessage = "Le nom du médecin doit contenir au moins {{ limit }} caractères",
-     *      maxMessage = "Le nom du médecin doit contenir moins de {{ limit }} caractères"
-     * )
-     */
-    private ?string $nom_medecin = null;
+    
+     #[Assert\NotBlank]
+     #[Assert\Length(
+           min : 2,
+           max : 50,
+           minMessage : "Le nom du médecin doit contenir au moins {{ limit }} caractères",
+           maxMessage : "Le nom du médecin doit contenir moins de {{ limit }} caractères"
+      )]
+
+    public ?string $nom_medecin = null;
 
     #[ORM\Column]
-        /**
-     * @Assert\NotBlank
-     * @Assert\Type(
-     *     type="numeric",
-     *     message="Le coût de l'opération doit être un nombre"
-     * )
-     * @Assert\Positive(
-     *     message="Le coût de l'opération doit être un nombre positif"
-     * )
-     */
-    private ?int $cout_operation = null;
+        
+    #[Assert\NotBlank]
+    #[Assert\Type(
+          type:"numeric",
+          message:"Le coût de l'opération doit être un nombre"
+      )]
+    #[Assert\Positive(
+          message:"Le coût de l'opération doit être un nombre positif"
+     )]
 
-    #[ORM\Column(type: Types::TEXT)]
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 7,
-     *      max = 100,
-     *      minMessage = "La note doit contenir au moins {{ limit }} caractères",
-     *      maxMessage = "La note doit contenir moins de {{ limit }} caractères"
-     * )
-     */
-    private ?string $note_operation = null;
+    public ?int $cout_operation = null;
+
+    
+    #[ORM\Column(length: 255)]
+    
+    #[Assert\NotBlank]
+    #[Assert\Length(
+          min : 7,
+          max : 100,
+          minMessage : "La note doit contenir au moins {{ limit }} caractères",
+          maxMessage : "La note doit contenir moins de {{ limit }} caractères"
+     )]
+    public ?string $note_operation = null;
 
     #[ORM\ManyToOne(inversedBy: 'Operation')]
-    private ?Maladie $maladie = null;
+    public ?Maladie $maladie = null;
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
-    private ?Animal $animal = null;
+    public ?Animal $animal = null;
 
    
 

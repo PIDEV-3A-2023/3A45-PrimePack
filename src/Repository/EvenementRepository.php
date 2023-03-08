@@ -39,6 +39,38 @@ class EvenementRepository extends ServiceEntityRepository
         }
     }
 
+    public function getEvHistory()
+    {
+
+        $atEndOfDay = new \DateTime();
+
+        $atEndOfDay->setTime(0, 0, 0, 0);
+
+
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.date < :valDeb')
+            ->setParameter('valDeb', $atEndOfDay)
+            ->orderBy('e.date')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getEvfut()
+    {
+
+        $atEndOfDay = new \DateTime();
+
+        $atEndOfDay->setTime(0, 0, 0, 0);
+
+
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.date > :valDeb')
+            ->setParameter('valDeb', $atEndOfDay)
+            ->orderBy('e.date')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Evenement[] Returns an array of Evenement objects
 //     */

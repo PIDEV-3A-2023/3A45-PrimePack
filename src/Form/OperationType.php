@@ -23,17 +23,15 @@ class OperationType extends AbstractType
                 
                 'label' => 'Date et heure',
                 'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'yyyy-MM-dd HH:mm:ss',
                 'attr' => [
                     'class' => 'form-control',
                 ],
             ])
             ->add('type_operation', ChoiceType::class,[ 'choices' => [
-                'Surgury' => 'surgury',
-                'Vaccination' => 'vaccination',
-                'Operation' => 'operation',
-                'Autre' => 'autre'
+                'Surgury' => 'Surgury',
+                'Vaccination' => 'Vaccination',
+                'Operation' => 'Operation',
+                'Autre' => 'Autre'
             ],
             'attr' => [
                 'class' => 'form-control mb-3',

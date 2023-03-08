@@ -24,31 +24,25 @@ class MaladieType extends AbstractType
             ->add('description',TextareaType::class,[ 'attr' => [
                 'class' => 'form-control mb-3',
             ],])
-            ->add('type_aniaml', ChoiceType::class,[ 'choices' => [
-                'Chien' => 'chien',
-                'Chat' => 'chat',
-                'Oiseau' => 'oiseau',
-                'Autre' => 'autre'
-            ],
-            'attr' => [
+            ->add('type_aniaml', TextType::class,[ 'attr' => [
                 'class' => 'form-control mb-3',
             ],])
-            ->add('date_creation', DateTimeType::class, [
+            ->add('date_creation', DateType::class, [
                 
-                'label' => 'Date et heure',
+                'label' => 'Date et heure de creation',
                 'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'yyyy-MM-dd HH:mm:ss',
+
+        
                 'attr' => [
                     'class' => 'form-control',
                 ],
             ])
-            ->add('date_MAJ', DateTimeType::class, [
+            ->add('date_MAJ', DateType::class, [
                 
-                'label' => 'Date et heure',
+                'label' => 'Date et heure de mise a jour',
                 'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'yyyy-MM-dd HH:mm:ss',
+                
+                
                 'attr' => [
                     'class' => 'form-control',
                 ],
