@@ -1,0 +1,89 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Maladies{% endblock %}
+
+{% block body %}
+
+   <h1> LISTE DES MALADIES </h1>
+
+
+<section class="items-product1 pt-30">
+            <div class="container">
+                <div class="row">
+                   
+                   <table class="table table-rounded" id="t"  width="100%" cellspacing="0">
+                   
+        <thead>
+            <tr>
+                <th></th>
+
+                <th>ID</th>
+                <th>NOM DU MALADIE</th>
+                <th>DESCRIPTION</th>
+                <th>TYPE DE L'ANIMAL</th>
+                <th>DATE DE CREATION</th>
+                <th>DATE DU MISE A JOUR</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for maladie in maladies %}
+            <tr>
+                                                         <td>             <a href={{path ('app_operation_index')}}>  <img   width="100" src="https://img.freepik.com/premium-vector/hospital-bed-glass-sign-icon-green-shiny-button-ui-website-button_159242-7509.jpg">  </a>
+                </td>
+                <td>{{ maladie.id }}</td>
+                <td>{{ maladie.nom }}</td>
+                <td>{{ maladie.description }}</td>
+                <td>{{ maladie.typeAniaml }}</td>
+                <td>{{ maladie.dateCreation ? maladie.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>{{ maladie.dateMAJ ? maladie.dateMAJ|date('Y-m-d') : '' }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                    {{ knp_pagination_render(maladies) }}
+                </div>
+            </div>
+        </section>
+                <div class="single-slider slider-bg2 slider-height d-flex align-items-center">
+                    <div class="container">
+                        <div class="row justify-content-end">
+                            <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-10">
+                                <div class="hero-caption text-center">
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="items-product1 pt-30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-items mb-20">
+                           
+                            
+                        </div>
+                    </div>
+                   
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-items mb-20">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+ 
+{% endblock %}
+

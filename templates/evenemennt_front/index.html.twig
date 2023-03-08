@@ -1,0 +1,36 @@
+{% extends 'front/base.html.twig' %}
+
+{% block body %}
+
+    <section class="items-product1 pt-30">
+        <div class="container">
+            <div class="row">
+                <h1>Evnement</h1>
+                {% for evenement in evenements %}
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-items mb-20">
+                            {% if((evenement.ticket | length) >= evenement.nbPlace) %}
+                                <div style="background-color: red"><span style="color: white">evenement complée</span>
+                                </div>
+                            {% endif %}
+                            <div class="items-img">
+                                <img src="{{ asset('assets/img/gallery/items1.jpg') }}" alt="">
+                            </div>
+                            <div class="items-details">
+                                <h4><a href="#">{{ evenement.nom }}</a></h4>
+                                <h5 style="color: white"><a href="pro-details.html">{{ evenement.description }} </a>
+                                </h5>
+                                {% if((evenement.ticket | length) < evenement.nbPlace) %}
+                                    <a href="{{ path('app_ticket_front_new', {'idE':evenement.id}) }}"
+                                       class="browse-btn">Ticket</a>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'front/base.html.twig' %}
+{% block body %}
+    <div class="container" style="margin-top: 20px">
+        {% for message in app.flashes('success') %}
+            <div style="background-color: #20c056; border-radius:50px; margin-bottom: 5px; color: white ">
+                <center>{{ message | raw }}</center>
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('fail') %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ message | raw }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+        <a class="btn btn-primary" href="{{ path('app_ticket_exel') }}">export Exel</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Prix</th>
+                <th>Date reservation</th>
+                <th>nom evenement</th>
+                <th><a style="color: black" href="{{ path('app_ticket_index_tri_date', {'tri':tri}) }}">Date
+                        evenement</a></th>
+                <th>Validité</th>
+                <th>CodeQR</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket.id }}</td>
+                    <td>{{ ticket.code }}</td>
+                    <td>{{ ticket.prix }}</td>
+                    <td>{{ ticket.dateDebut ? ticket.dateDebut|date('Y-m-d') : '' }}</td>
+                    <td>
+                        {{ ticket.evenement.nom }}</td>
+                    <td>{{ ticket.evenement.date | date('Y-m-d') }}</td>
+
+
+                    {% if(ticket.evenement.date | date('U') <= date | date('U') ) %}
+                        <td>
+                            <div style="
+                            padding: 10px 11px;
+                            background: red;
+                            height: 2px;
+                            border-radius: 50%;
+                            margin-left: auto;
+                            margin-right: auto;
+                            width: 2px;" class="circle_green">
+                            </div>
+                        </td>
+                    {% endif %}
+                    {% if(ticket.evenement.date|date('U')>date|date('U')) %}
+                        <td>
+                            <div style="
+                            padding: 10px 11px;
+                            background: green;
+                            height: 2px;
+                            border-radius: 50%;
+                            margin-left: auto;
+                            margin-right: auto;
+                            width: 2px;" class="circle_green">
+                            </div>
+
+
+                        </td>
+
+                    {% endif %}
+                    <td>
+                        <a href="{{ path('app_ticket_codeqr',{'id': ticket.id}) }}" style="color: black">codeQr</a>
+
+
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

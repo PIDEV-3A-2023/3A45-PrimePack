@@ -1,0 +1,43 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Maladie{% endblock %}
+
+{% block body %}
+    <h1>Maladie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ maladie.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ maladie.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ maladie.description }}</td>
+            </tr>
+            <tr>
+                <th>Type_aniaml</th>
+                <td>{{ maladie.typeAniaml }}</td>
+            </tr>
+            <tr>
+                <th>Date_creation</th>
+                <td>{{ maladie.dateCreation ? maladie.dateCreation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_MAJ</th>
+                <td>{{ maladie.dateMAJ ? maladie.dateMAJ|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_maladie_afficher') }}">Back</a>
+
+    <a href="{{ path('app_maladie_edit', {'id': maladie.id}) }}">Edit</a>
+
+    {{ include('maladie/_delete_form.html.twig') }}
+{% endblock %}
+
