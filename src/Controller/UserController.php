@@ -15,7 +15,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository, Request $request): Response
     {
@@ -28,7 +27,7 @@ class UserController extends AbstractController
             1);// Nombre de résultats par page*/
 
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->getUsers(0, 10),
+            'users' => $userRepository->findAll(),
         ]);
     }
 
