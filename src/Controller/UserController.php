@@ -15,11 +15,20 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/user')]
 class UserController extends AbstractController
 {
+
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Request $request): Response
     {
+
+        // $donnees = $this->getDoctrine()->getRepository(User::class)->findBy([],['updatedAt' => 'desc']);
+
+        /*$user= $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            1);// Nombre de résultats par page*/
+
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $userRepository->getUsers(0, 10),
         ]);
     }
 

@@ -53,8 +53,8 @@ class User
 
     #[Assert\NotBlank(message:"email is required")]
     #[Groups("flora")]
-    #[ORM\Column(type: 'json')]
-    private $role = [];
+    #[ORM\Column(length: 255)]
+    private ?string $role = null;
 
     public function getId(): ?int
     {
@@ -145,16 +145,14 @@ class User
         return $this;
     }
 
-    public function getRole(): array
+    public function getRole(): ?string
     {
-        $role = $this->role;
-        // guarantee every user at least has ROLE_USER
-        $role[] = 'ROLE_USER';
 
-        return array_unique($role);
+        return $this->role;
+
     }
 
-    public function setRole(array $role): self
+    public function setRole(string $role): self
     {
         $this->role = $role;
 
