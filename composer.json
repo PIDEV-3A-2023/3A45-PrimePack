@@ -46,7 +46,8 @@
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
-        "yellowskies/qr-code-bundle": "^1.2"
+        "yellowskies/qr-code-bundle": "^1.2",
+        "knplabs/knp-snappy-bundle": "^1.9"
     },
     "config": {
         "allow-plugins": {

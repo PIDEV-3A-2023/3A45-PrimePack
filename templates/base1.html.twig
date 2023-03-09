@@ -75,9 +75,9 @@
                     <div class="nav-item dropdown">
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer utilisateur</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter utilisateur</a>
-                            <a href="#" class="dropdown-item">Liste des utilisateurs</a>
+                            <div class="dropdown-menu bg-transparent border-0">{# 
+                            <a href="#" class="dropdown-item">Ajouter utilisateur</a> #}
+                            <a href="{{ path('app_user_index') }}" class="dropdown-item">Liste des utilisateurs</a>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Actualite</a>
@@ -94,14 +94,14 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Produit</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter produit</a>
-                            <a href="#" class="dropdown-item">Liste des produits</a>
+                            <a href="{{ path('app_produit_new') }}" class="dropdown-item">Ajouter produit</a>
+                            <a href="{{ path('app_produit_indexx') }}" class="dropdown-item">Liste des produits</a>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Categorie</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter categorie</a>
-                            <a href="#" class="dropdown-item">Liste des categories</a>
+                            <a href="{{ path('app_categorie_new') }}" class="dropdown-item">Ajouter categorie</a>
+                            <a href="{{ path('app_categorie_index') }}" class="dropdown-item">Liste des categories</a>
                         </div>
                         
                         <div class="nav-item dropdown">
@@ -126,24 +126,24 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer maladie</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{{path ('app_maladie_new')}}" class="dropdown-item">Ajouter maladie</a>
-                            <a href="{{path ('app_maladie_afficher')}}" class="dropdown-item">Liste des Maladies</a>
+                            <a href="{{path ('')}}" class="dropdown-item">Ajouter une maladie</a>
+                            <a href="{{ path('app_maladie_afficher') }}" class="dropdown-item">Liste des maladies</a>
                         </div>
                          <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer animal</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter animal</a>
-                            <a href="#" class="dropdown-item">Liste des animals</a>
+
+                            <a href="{{ path('app_animal_index') }}" class="dropdown-item">Liste des animals</a>
                         </div>
                          <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer rendez vous</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Liste des rendez vous</a>
+                            <a href="{{ path('app_rendez_vous_index') }}" class="dropdown-item">Liste des rendez vous</a>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Ordonnance</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Liste des ordonnancess</a>
+                            <a href="{{ path('app_ordonnance_index') }}" class="dropdown-item">Liste des ordonnancess</a>
                         </div>
                     </div>
                     {# <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>

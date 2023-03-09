@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RendezVousRepository::class)]
 class RendezVous
@@ -17,10 +18,19 @@ class RendezVous
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\GreaterThanOrEqual("today",message: "le date n'est pas valide")]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $duree = null;
+
+    #[ORM\Column(type: Types::INTEGER)]
+    #[Assert\NotBlank(message:"La Duree du rendez vous  doit etre existe")]
+    #[Assert\Positive(message:"La Duree du rendez vous  doit etre positive")]
+    #[Assert\NotEqualTo(value: 0)]
+    #[Assert\LessThanOrEqual(
+        value: 2,
+        message: "la duree maximal d'un rendez_vous est 2heures"
+    )]
+    private ?int $duree = null;
 
     #[ORM\ManyToOne(inversedBy: 'rendezVouses')]
     private ?Animal $animal = null;
@@ -28,10 +38,16 @@ class RendezVous
     #[ORM\OneToMany(mappedBy: 'rendezvous', targetEntity: Membre::class)]
     private Collection $membres;
 
+
     public function __construct()
     {
         $this->membres = new ArrayCollection();
     }
+
+
+
+
+
 
     public function getId(): ?int
     {
@@ -50,17 +66,27 @@ class RendezVous
         return $this;
     }
 
-    public function getDuree(): ?\DateTimeInterface
+    /**
+     * @return int|null
+     */
+    public function getDuree(): ?int
     {
         return $this->duree;
     }
 
-    public function setDuree(\DateTimeInterface $duree): self
+    /**
+     * @param int|null $duree
+     */
+    public function setDuree(?int $duree): void
     {
         $this->duree = $duree;
-
-        return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->animal;
+    }
+
 
     public function getAnimal(): ?Animal
     {
@@ -103,4 +129,8 @@ class RendezVous
 
         return $this;
     }
+
+
+
 }
+

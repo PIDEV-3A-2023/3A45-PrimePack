@@ -1,0 +1,69 @@
+{% extends 'base1.html.twig' %}
+
+{% block body %}
+
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card-box">
+                    <div class="dropdown pull-right">
+                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                            <i class="mdi mdi-dots-vertical"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                        </div>
+                    </div>
+                    <h4 class="m-t-0 header-title">Les Ordonnances</h4>
+                    <p class="text-muted font-14 m-b-20">
+
+
+                    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+
+                <th>Date</th>
+                <th> Description </th>
+                <th> Traitement </th>
+                <th> actions </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ordonnance in ordonnances %}
+            <tr>
+
+                <td>{{ ordonnance.id }}</td>
+                <td>{{ ordonnance.date ? ordonnance.date|date('Y-m-d') : '' }}</td>
+                <td>{{ ordonnance.description }}</td>
+                <td>{{ ordonnance.traitement }}</td>
+                <td>
+                    <a href="{{ path('app_ordonnance_show', {'id': ordonnance.id}) }}">show</a>
+                    <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <a href="{{ path('app_ordonnance_new') }}">Create new</a>
+{% endblock %}

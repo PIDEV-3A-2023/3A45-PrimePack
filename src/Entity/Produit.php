@@ -6,6 +6,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -15,14 +16,29 @@ class Produit
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Length(
+        min: 2,
+        max: 100,
+        minMessage: 'Le nom doit comporter au moins {{ 2 }} caractères',
+        maxMessage: 'Le nom ne peut pas comporter plus de {{ 100 }} caractères'
+    )]
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[Assert\NotBlank(message: "Le prix ne doit pas être vide")]
+    #[Assert\Type(type: 'float', message: "Le prix doit être un nombre à virgule flottante")]
+    #[Assert\GreaterThan(value: 0, message: "Le prix doit être supérieur à 0")]
     #[ORM\Column]
     private ?float $prix = null;
 
+    #[Assert\NotBlank(message: "Le stock ne doit pas être vide")]
+    #[Assert\Type(type: 'integer', message: "Le stock doit être un entier")]
+    #[Assert\GreaterThan(value: 0, message: "Le stock doit être supérieur à 0")]
     #[ORM\Column]
     private ?int $stock = null;
+
+    
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
@@ -33,15 +49,9 @@ class Produit
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Categorie $categorie = null;
 
-    #[ORM\ManyToOne(inversedBy: 'produits')]
-    private ?Membre $membre = null;
-
-    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Membre::class)]
-    private Collection $membres;
 
     public function __construct()
     {
-        $this->membres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,45 +131,7 @@ class Produit
         return $this;
     }
 
-    public function getMembre(): ?Membre
-    {
-        return $this->membre;
-    }
+   
 
-    public function setMembre(?Membre $membre): self
-    {
-        $this->membre = $membre;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Membre>
-     */
-    public function getMembres(): Collection
-    {
-        return $this->membres;
-    }
-
-    public function addMembre(Membre $membre): self
-    {
-        if (!$this->membres->contains($membre)) {
-            $this->membres->add($membre);
-            $membre->setProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMembre(Membre $membre): self
-    {
-        if ($this->membres->removeElement($membre)) {
-            // set the owning side to null (unless already changed)
-            if ($membre->getProduit() === $this) {
-                $membre->setProduit(null);
-            }
-        }
-
-        return $this;
-    }
+   
 }
