@@ -58,12 +58,16 @@ class UserRepository extends ServiceEntityRepository
      * @param $maxResult
      * @return Paginator
      */
-    public function getUsers($firstResult,$maxResult){
+    public function getUsers($page){
+        $pageSize = 10;
+        $firstResult = ($page - 1) * $pageSize;
+
         $queryBuilder = $this->getUsersQueryBuilder();
+
 
         // Add the first and max result limits
         $queryBuilder->setFirstResult($firstResult);
-        $queryBuilder->setMaxResults($maxResult);
+        $queryBuilder->setMaxResults($pageSize);
 
         // Generate the Query
         $query = $queryBuilder->getQuery();
