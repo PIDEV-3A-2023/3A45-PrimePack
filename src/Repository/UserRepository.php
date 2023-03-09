@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,42 +39,7 @@ class UserRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * Retrieve the list of users
-     * @return User[] Returns an array of User objects
-     */
-    private function getUsersQueryBuilder(): array{
-        // Select the users
-        return $this->createQueryBuilder('u')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
 
-    /**
-     * Retrieve the list of users
-     * @param $firstResult
-     * @param $maxResult
-     * @return Paginator
-     */
-    public function getUsers($page){
-        $pageSize = 10;
-        $firstResult = ($page - 1) * $pageSize;
-
-        $queryBuilder = $this->getUsersQueryBuilder();
-
-
-        // Add the first and max result limits
-        $queryBuilder->setFirstResult($firstResult);
-        $queryBuilder->setMaxResults($pageSize);
-
-        // Generate the Query
-        $query = $queryBuilder->getQuery();
-
-        // Generate the Paginator
-        $paginator = new Paginator($query, false);
-        return $paginator;
-    }
 
 //    /**
 //     * @return User[] Returns an array of User objects
