@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\OrdonnanceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrdonnanceRepository::class)]
 class Ordonnance
@@ -18,13 +19,17 @@ class Ordonnance
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min:6 , max: 20)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:6 , max: 50)]
     private ?string $traitement = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?RendezVous $rendezvous = null;
+
+
 
     public function getId(): ?int
     {

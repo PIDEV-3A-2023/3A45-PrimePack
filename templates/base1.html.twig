@@ -30,6 +30,12 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('back-assets/css/style.css')}}" rel="stylesheet">
+
+      <link href="{{asset('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap')}}" rel="stylesheet">
+ 
+   <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css')}}" type="text/css" />
+
+<link rel="stylesheet" href="{{asset('https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css')}}">
       {% endblock %}
 
          {% block javascripts %}
@@ -43,6 +49,10 @@
     <script src="asset('back-assets/lib/tempusdominus/js/moment.min.js')}}"></script>
     <script src="asset('back-assets/lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
     <script src="asset('back-assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+     <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')}}"></script>
+        <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js')}}"></script>
+            <script src="{{asset('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>
+            <script src="{{asset('https://code.jquery.com/ui/1.13.1/jquery-ui.min.js')}}"></script>
 
     <!-- Template Javascript -->
     <script src="asset('back-assets/js/main.js')}}"></script>
@@ -66,7 +76,7 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Dhia</h6>
+                        <h6 class="mb-0">Nessim</h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -75,15 +85,16 @@
                     <div class="nav-item dropdown">
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer utilisateur</a>
-                            <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter utilisateur</a>
-                            <a href="#" class="dropdown-item">Liste des utilisateurs</a>
+                            <div class="dropdown-menu bg-transparent border-0">{# 
+                            <a href="#" class="dropdown-item">Ajouter utilisateur</a> #}
+                            <a href="{{ path('app_user_index') }}" class="dropdown-item">Liste des utilisateurs</a>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Actualite</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{{path ('app_actualite_new')}}" class="dropdown-item">Ajouter Actualite</a>
-                            <a href="{{path ('app_actualite_affiche')}}" class="dropdown-item">Liste des Actualites</a>
+                            <a href="{{ path ('app_actualite_new') }}" class="dropdown-item">Ajouter Actualite</a>
+                            <a href="{{ path ('app_actualite_affiche') }}" class="dropdown-item">Liste des Actualites</a>
+                             <a href="{{path ('app_stats')}}" class="dropdown-item">Stats actualite</a>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Commentaire</a>
@@ -94,55 +105,56 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Produit</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter produit</a>
-                            <a href="#" class="dropdown-item">Liste des produits</a>
+                            <a href="{{ path('app_produit_new') }}" class="dropdown-item">Ajouter produit</a>
+                            <a href="{{ path('app_produit_indexx') }}" class="dropdown-item">Liste des produits</a>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Categorie</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter categorie</a>
-                            <a href="#" class="dropdown-item">Liste des categories</a>
+                            <a href="{{ path('app_categorie_new') }}" class="dropdown-item">Ajouter categorie</a>
+                            <a href="{{ path('app_categorie_index') }}" class="dropdown-item">Liste des categories</a>
                         </div>
                         
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Evennement</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter evennement</a>
-                            <a href="#" class="dropdown-item">Liste des evennements</a>
+                             <a href="{{ path('app_evenement_new')}}" class="dropdown-item">Ajouter evennement</a>
+                            <a href="{{ path('app_evenement_index')}}" class="dropdown-item">Liste des evennements</a>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Ticket</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter ticket</a>
-                            <a href="#" class="dropdown-item">Liste des tickets</a>
+                            <a href="{{ path('app_ticket_new')}}" class="dropdown-item">Ajouter ticket</a>
+                           <a href="{{ path('app_ticket_index')}}" class="dropdown-item">Liste des tickets</a>
                         </div>
                        
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer operation</a>
                             <div class="dropdown-menu bg-transparent border-0">
                             <a href="{{path ('app_operation_new')}}" class="dropdown-item">Ajouter operation</a>
-                            <a href="{{path ('app_operation_index')}}" class="dropdown-item">Liste des operations</a>
+                            <a href="{{path ('app_operation_afficher')}}" class="dropdown-item">Liste des operations</a>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer maladie</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Liste des maladies</a>
+                            <a href="{{ path ('app_maladie_new') }}" class="dropdown-item">Ajouter une maladie</a>
+                             <a href="{{path ('app_maladie_afficher')}}" class="dropdown-item">Liste des maladies</a>
                         </div>
                          <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer animal</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Ajouter animal</a>
-                            <a href="#" class="dropdown-item">Liste des animals</a>
+
+                            <a href="{{ path('app_animal_index') }}" class="dropdown-item">Liste des animals</a>
                         </div>
                          <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer rendez vous</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Liste des rendez vous</a>
+                            <a href="{{ path('app_rendez_vous_index') }}" class="dropdown-item">Liste des rendez vous</a>
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Gerer Ordonnance</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">Liste des ordonnancess</a>
+                            <a href="{{ path('app_ordonnance_index') }}" class="dropdown-item">Liste des ordonnancess</a>
                         </div>
                     </div>
                     {# <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
@@ -188,7 +200,7 @@
                                 <div class="d-flex align-items-center">
                                     <img class="rounded-circle" src="{{ asset('back-assets/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">dhia send you a message</h6>
+                                        <h6 class="fw-normal mb-0">Aziz send you a message</h6>
                                         <small>15 minutes ago</small>
                                     </div>
                                 </div>
@@ -198,7 +210,7 @@
                                 <div class="d-flex align-items-center">
                                     <img class="rounded-circle" src="{{ asset('back-assets/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">dhia send you a message</h6>
+                                        <h6 class="fw-normal mb-0">Dhia send you a message</h6>
                                         <small>15 minutes ago</small>
                                     </div>
                                 </div>
@@ -208,7 +220,7 @@
                                 <div class="d-flex align-items-center">
                                     <img class="rounded-circle" src="{{ asset('back-assets/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">dhia send you a message</h6>
+                                        <h6 class="fw-normal mb-0">Belhassen send you a message</h6>
                                         <small>15 minutes ago</small>
                                     </div>
                                 </div>
@@ -244,7 +256,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="{{ asset('back-assets/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Dhia</span>
+                            <span class="d-none d-lg-inline-flex">Nessim</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
@@ -299,6 +311,18 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
-  
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/640797294247f20fefe48c9e/1gquqcuj6';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
 
 </html>

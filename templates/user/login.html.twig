@@ -1,0 +1,75 @@
+{% extends 'home/index.html.twig' %}
+
+{% block title %}Nouvel Utilisateur{% endblock %}
+
+{% block body %}
+    <h1>S'inscrire</h1>
+
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+
+
+                <div class="row">
+                    <div class="col-md-12"  style="display: flex; justify-content: center;align-items:center;width: 100%" >
+                        <div class="card-box">
+                            <div class="dropdown pull-right">
+                                <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="mdi mdi-dots-vertical"></i>
+                                </a>
+                            </div>
+
+                            <div class="card-body">
+                                <form method="post" >
+
+
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="form-control"><i class="fas fa-user"></i></span>
+                                        </div>
+                                        <input type="email" required name="email"  class="form-control"  placeholder="Email" />
+                                        </span>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="form-control"><i class="fas fa-key"></i></span>
+                                        </div>
+                                        <input type="password" required name="password" class="form-control" placeholder="Password" />
+                                        <input type="hidden" name="_csrf_token"
+                                               value="{{ csrf_token('authenticate') }}">
+                                    </div>
+                                    <div class="row align-items-center remember">
+                                        <input type="checkbox">Remember Me
+                                    </div>
+
+
+
+
+                                    <hr>
+
+                                    <div class="form-group">
+                                        <input type="submit"  value="Login"  class="btn float-right login_btn" >
+
+                                    </div>
+                                    </span>
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-center links">
+                                    Don't have an account?<a href="{{ path('app_user_new_back')}}">Sign Up</a></button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+

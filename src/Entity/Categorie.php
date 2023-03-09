@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
@@ -16,23 +17,41 @@ class Categorie
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Length(
+        min: 2,
+        max: 100,
+        minMessage: 'Le nom doit comporter au moins {{ 2 }} caractères',
+        maxMessage: 'Le nom ne peut pas comporter plus de {{ 100 }} caractères'
+    )]
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $icone = null;
 
+    #[Assert\NotBlank(message: 'La description ne peut pas être vide')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'La description ne peut pas dépasser {{ 255 }} caractères'
+    )]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[Assert\NotBlank(message: 'La note ne peut pas être vide')]
+    #[Assert\Range(
+        min: 0,
+        max: 5,
+        notInRangeMessage: 'La note doit être comprise entre {{ min }} et {{ max }}',
+        
+    )]
     #[ORM\Column]
     private ?float $note = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $marque = null;
+   
 
-    #[ORM\Column(length: 255)]
-    private ?string $sous_categorie = null;
+ 
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Produit::class)]
     private Collection $produits;
@@ -95,29 +114,8 @@ class Categorie
         return $this;
     }
 
-    public function getMarque(): ?string
-    {
-        return $this->marque;
-    }
+  
 
-    public function setMarque(string $marque): self
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
-
-    public function getSousCategorie(): ?string
-    {
-        return $this->sous_categorie;
-    }
-
-    public function setSousCategorie(string $sous_categorie): self
-    {
-        $this->sous_categorie = $sous_categorie;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Produit>
@@ -148,4 +146,11 @@ class Categorie
 
         return $this;
     }
+
+
+
+public function __toString() {
+  return $this->nom;
+}
+
 }

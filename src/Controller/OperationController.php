@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Operation;
 use App\Form\OperationType;
 use App\Repository\OperationRepository;
@@ -20,6 +19,14 @@ class OperationController extends AbstractController
             'operations' => $operationRepository->findAll(),
         ]);
     }
+    
+    #[Route('/oper', name: 'app_operation_afficher', methods: ['GET'])]
+    public function afficher(OperationRepository $operationRepository): Response
+    {
+        return $this->render('operation/afficher.html.twig', [
+            'operations' => $operationRepository->findAll(),
+        ]);
+    }
 
     #[Route('/new', name: 'app_operation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OperationRepository $operationRepository): Response
@@ -31,7 +38,7 @@ class OperationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $operationRepository->save($operation, true);
 
-            return $this->redirectToRoute('app_operation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_operation_afficher', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('operation/new.html.twig', [
@@ -57,7 +64,7 @@ class OperationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $operationRepository->save($operation, true);
 
-            return $this->redirectToRoute('app_operation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_operation_afficher', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('operation/edit.html.twig', [
@@ -73,6 +80,8 @@ class OperationController extends AbstractController
             $operationRepository->remove($operation, true);
         }
 
-        return $this->redirectToRoute('app_operation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_operation_afficher', [], Response::HTTP_SEE_OTHER);
     }
+   
+    
 }

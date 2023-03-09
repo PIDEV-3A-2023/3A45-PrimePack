@@ -37,7 +37,7 @@ class Actualite
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_Creation = null;
 
-    #[ORM\OneToMany(mappedBy: 'actualite', targetEntity: Commentaire::class)]
+    #[ORM\OneToMany(mappedBy: 'actualite', targetEntity: Commentaire::class, cascade: ['remove'])]
     private Collection $Commentaire;
 
     #[ORM\ManyToOne(inversedBy: 'actualite')]

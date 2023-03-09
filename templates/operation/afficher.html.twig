@@ -1,0 +1,43 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}operations{% endblock %}
+
+{% block body %}
+    <h1>Operation </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date d'operation</th>
+                <th>Type d'operation</th>
+                <th>Nom du medecin</th>
+                <th>Cout</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for operation in operations %}
+            <tr>
+                <td>{{ operation.id }}</td>
+                <td>{{ operation.dateOperation ? operation.dateOperation|date('Y-m-d') : '' }}</td>
+                <td>{{ operation.typeOperation }}</td>
+                <td>{{ operation.nomMedecin }}</td>
+                <td>{{ operation.coutOperation }}</td>
+                <td>{{ operation.noteOperation }}</td>
+                <td>
+                    <a href="{{ path('app_operation_show', {'id': operation.id}) }}">show</a>
+                    <a href="{{ path('app_operation_edit', {'id': operation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_operation_new') }}">Create new</a>
+{% endblock %}

@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Actualite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 
 /**
  * @extends ServiceEntityRepository<Actualite>
@@ -38,6 +40,28 @@ class ActualiteRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function getCommentsStats()
+{
+    $qb = $this->createQueryBuilder('p')
+        ->select('p.theme', 'COUNT(c.id) as commentsCount')
+        ->leftJoin('p.Commentaire', 'c')
+        ->groupBy('p.id')
+        ->getQuery();
+
+    return $qb->getResult();
+}
+public function createQueryBuilderForSearch(string $query = null): QueryBuilder
+{
+    $qb = $this->createQueryBuilder('p');
+
+    if ($query !== null) {
+        $qb->andWhere('p.theme LIKE :query')
+            ->setParameter('query', '%'.$query.'%');
+    }
+
+
+    return $qb;
+}
 
 //    /**
 //     * @return Actualite[] Returns an array of Actualite objects

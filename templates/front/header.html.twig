@@ -43,19 +43,31 @@
                         <nav>
                             <ul id="navigation">
                                 <li><a href="{{ path('app_actualite_index') }}">Actualite</a></li>
-                                <li><a href="#">Evenement</a></li>
-                                <li><a href="#">Consultation</a></li>
-                                <li class="new"><a href="#">Catalogue</a></li>
-                                <li><a href="#">Contact</a></li>
-                                <li><a href="#">Operation</a>
+                                <li><a href="{{ path('app_evenemennt_front_index') }}">Evenment<i
+                                                class="fas fa-angle-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="{{ path('app_evenemennt_front_index_past') }}">historique</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="{{ path('app_ticket_front_index') }}">Mes Tickets<i
+                                                class="fas fa-angle-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="{{ path('app_evenemennt_front_index_past') }}">historique</a></li>
+                                    </ul>
+                                </li>
+                                 <li><a href="{{ path('app_maladie_index') }}">maladies</a></li>
+                                <li><a href="{{ path('app_produit_index') }}">produit</a></li>
+                                {# <li><a href="#">Operation</a> #}
 
                                 </li>
 
                                 <li><a href="#">Profile<i class="fas fa-angle-down"></i></a>
                                     <ul class="submenu">
-                                        <li><a href="#">Logout</a></li>
-                                        <li><a href="#">Edit profile</a></li>
-                                        <li><a href="#">change password</a></li>
+                                        <li><a href="{{ path('app_login') }}">Login</a></li>
+                                        <li><a href="{{ path('app_user_new_back') }}">Register</a></li>
+
+                                        {# <li><a href="#">change password</a></li> #}
 
                                     </ul>
                                 </li>
@@ -73,7 +85,7 @@
                                 </div>
                             </li>
                             <li> <a href="#"><span class="flaticon-user"></span></a></li>
-                            <li class="cart"><a href="#"><span class="flaticon-shopping-cart"></span></a>
+                            <li class="cart"><a href="{{ path('cart_index') }}"><span class="flaticon-shopping-cart"></span></a>
                             </li>
                         </ul>
                     </div>

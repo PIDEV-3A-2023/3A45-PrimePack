@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MaladieRepository::class)]
 class Maladie
@@ -14,21 +16,51 @@ class Maladie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    
+  
     private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
+    
+    
+    
+   
+   
+    
+    #[ORM\Column(type:"string", length:255)]
+     #[Assert\Length(
+          min : 3,
+          max : 50,
+          minMessage: "Le nom  est trop court",
+          maxMessage:"Le nom est trop long")]
+      
+     
     private ?string $nom = null;
+     
 
     #[ORM\Column(type: Types::TEXT)]
+     
+
+    #[Assert\NotBlank]
+    #[Assert\Length(
+          min : 7,
+          max : 100,
+          minMessage : "La description doit contenir au moins {{ limit }} caractères",
+          maxMessage : "La description doit contenir moins de {{ limit }} caractères"
+     )]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    
+     #[Assert\NotBlank(message:"Chat/Chien/Oiseau/Autre")]
+     #[Assert\Choice(['Chien', 'Chat', 'Oiseau', 'Autre'])]
+     
     private ?string $type_aniaml = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+  
     private ?\DateTimeInterface $date_creation = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    
     private ?\DateTimeInterface $date_MAJ = null;
 
     #[ORM\OneToMany(mappedBy: 'maladie', targetEntity: Operation::class)]

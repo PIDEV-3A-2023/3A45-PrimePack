@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: AnimalRepository::class)]
 class Animal
@@ -17,9 +19,11 @@ class Animal
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+     #[Assert\NotBlank(message:"le nom doit etre existe")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"le race doit etre existe")]
     private ?string $race = null;
 
     #[ORM\Column(length: 255)]
@@ -29,6 +33,7 @@ class Animal
     private ?string $age = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message:"la description doit etre existe")]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'animal', targetEntity: RendezVous::class)]
@@ -46,22 +51,33 @@ class Animal
     #[ORM\ManyToOne(inversedBy: 'animal')]
     private ?Membre $membre = null;
 
+
+
     public function __construct()
     {
         $this->rendezVouses = new ArrayCollection();
         $this->operations = new ArrayCollection();
         $this->maladies = new ArrayCollection();
     }
+    public function __toString() {
+        return $this->nom;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+    /*
+     * @return string
+     */
 
     public function getNom(): ?string
     {
         return $this->nom;
     }
+    /*
+     * @return string
+     */
 
     public function setNom(string $nom): self
     {
@@ -69,11 +85,18 @@ class Animal
 
         return $this;
     }
+    /*
+     * @return string
+     */
 
     public function getRace(): ?string
     {
         return $this->race;
     }
+    /*
+ * @return string
+ */
+
 
     public function setRace(string $race): self
     {
@@ -82,10 +105,17 @@ class Animal
         return $this;
     }
 
+    /*
+     * @return string
+     */
     public function getGenre(): ?string
     {
         return $this->genre;
     }
+    /*
+ * @return string
+ */
+
 
     public function setGenre(string $genre): self
     {

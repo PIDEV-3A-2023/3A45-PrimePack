@@ -1,4 +1,4 @@
-{% extends 'front/base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 {% block title %}Actualité index{% endblock %}
 
@@ -43,7 +43,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="hero__categories">
+                    {# <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
                             <span>All departments</span>
@@ -51,9 +51,9 @@
                         <ul>
                             
                         </ul>
-                    </div>
+                    </div> #}
                 </div>
-                <div class="col-lg-9">
+                {# <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="#">
@@ -68,11 +68,11 @@
                         <div class="hero__search__phone">nom
                             <div class="hero__search__phone__icon">
                                 <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
+                            </div> #}
+                            {# <div class="hero__search__phone__text">
                                 <h5>+65 11.188.888</h5>
                                 <span>support 24/7 time</span>
-                            </div>
+                            </div> #}
                         </div>
                     </div>
                 </div>
@@ -88,10 +88,7 @@
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>Actualite</h2>
-                        <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Actualite</span>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -100,17 +97,108 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Blog Section Begin -->
-    <section class="blog spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-5">
-                    <div class="blog__sidebar">
+    
                         <div class="blog__sidebar__search">
-                            <form action="#">
-                                <input type="text" placeholder="Search...">
-                                <button type="submit"><span class="icon_search"></span></button>
+                           <form id="search-form">
+                                  <input type="text" id="search-input" placeholder="par theme .." >
+                               
                             </form>
-                        </div>
+                               <div id="search-results"></div>
+                       
+                            <script>
+  $(document).ready(function() {
+    // Ecouter l'événement de frappe sur le champ de recherche et le changement de date
+    $('#search-input').on('keyup change', function() {
+        // Récupérer la valeur du champ de recherche
+        var query = $('#search-input').val();
+
+        // Vérifier si les deux champs sont vides
+        if (!query) {
+            $('#search-results').html('<p>Please provide a theme</p>');
+            return;
+        }
+
+        // Effectuer la recherche AJAX
+        $.ajax({
+            type: 'GET',
+            url: '/actualite/search',
+            data: {q: query},
+            success: function(data) {
+                var resultsDiv = $('#search-results');
+                resultsDiv.empty();
+                if (data.length === 0) {
+                    resultsDiv.append('<p>No results found.</p>');
+                } else {
+                    for (var i = 0; i < data.length; i++) {
+                        var result = data[i];
+                        resultsDiv.append('<a href="' + result.url + '">' + result.theme + '</a>');
+                    }
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+
+  
+});
+
+</script>
+
+     
+   </div>
+    <style>
+    
+    .b{
+     color:#b2b2b2;
+    }
+    .blog__sidebar__search {
+      display: flex;
+    flex-wrap: nowrap; /* changed from "wrap" to "nowrap" */
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    }
+    
+
+    .blog__sidebar__search input[type="text"],
+     {
+       width: 300px;
+	padding: 10px;
+	margin-right: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+    }
+   
+    #search-results {
+       margin-top: 50px;
+	display: flex;
+	flex-direction: column;
+    }
+
+    #search-results a {
+     padding: 10px;
+margin-bottom: 10px;
+background-color: #f5f5f5;
+color: #333;
+text-decoration: none;
+border-radius: 5px;
+transition: background-color 0.3s ease;
+box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    #search-results a:hover {
+    background-color: #eee;
+box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+ </div>
+
+
+
                         <div class="blog__sidebar__item">
                             <h4>Types</h4>
                             <ul>
@@ -182,6 +270,7 @@
                                     
                                     
                                      </p>
+                                    
                                   <a href="{{ path('app_actualite_singlepage', {'id': ac.id}) }}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>  
                                 </div>
                             </div>

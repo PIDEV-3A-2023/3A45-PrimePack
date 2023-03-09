@@ -39,6 +39,21 @@ class MaladieRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     *
+     * Requête QueryBuilder
+     */
+    public function listMaladieparDate(){
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.date_creation','ASC')
+            ->getQuery()
+            ->getResult()
+
+            ;
+
+    }
+
+
 //    /**
 //     * @return Maladie[] Returns an array of Maladie objects
 //     */

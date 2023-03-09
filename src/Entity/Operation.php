@@ -5,35 +5,77 @@ namespace App\Entity;
 use App\Repository\OperationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OperationRepository::class)]
 class Operation
 {
+
+  
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+     
+
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_operation = null;
+     
+    
+  
+    public ?\DateTimeInterface $date_operation = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type_operation = null;
+    
+     #[Assert\NotBlank(message:"Operation/Vaccination/Surgury/Autre")]
+     #[Assert\Choice(['Operation', 'Vaccination', 'Surgury'])]
+    
+    public ?string $type_operation = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom_medecin = null;
+    
+     #[Assert\NotBlank]
+     #[Assert\Length(
+           min : 2,
+           max : 50,
+           minMessage : "Le nom du médecin doit contenir au moins {{ limit }} caractères",
+           maxMessage : "Le nom du médecin doit contenir moins de {{ limit }} caractères"
+      )]
+
+    public ?string $nom_medecin = null;
 
     #[ORM\Column]
-    private ?int $cout_operation = null;
+        
+    #[Assert\NotBlank]
+    #[Assert\Type(
+          type:"numeric",
+          message:"Le coût de l'opération doit être un nombre"
+      )]
+    #[Assert\Positive(
+          message:"Le coût de l'opération doit être un nombre positif"
+     )]
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $note_operation = null;
+    public ?int $cout_operation = null;
+
+    
+    #[ORM\Column(length: 255)]
+    
+    #[Assert\NotBlank]
+    #[Assert\Length(
+          min : 7,
+          max : 100,
+          minMessage : "La note doit contenir au moins {{ limit }} caractères",
+          maxMessage : "La note doit contenir moins de {{ limit }} caractères"
+     )]
+    public ?string $note_operation = null;
 
     #[ORM\ManyToOne(inversedBy: 'Operation')]
-    private ?Maladie $maladie = null;
+    public ?Maladie $maladie = null;
 
     #[ORM\ManyToOne(inversedBy: 'operations')]
-    private ?Animal $animal = null;
+    public ?Animal $animal = null;
 
    
 

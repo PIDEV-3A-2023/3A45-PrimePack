@@ -36,7 +36,11 @@ class Evenement
 
     #[ORM\ManyToOne(inversedBy: 'evenements')]
     private ?Membre $membre = null;
-
+    #[ORM\Column]
+    #[Assert\Positive]
+    #[Assert\NotBlank]
+    #[Groups("evenement")]
+    private ?int $nbPlace = null;
     public function __construct()
     {
         $this->ticket = new ArrayCollection();
@@ -166,5 +170,21 @@ class Evenement
         $this->membre = $membre;
 
         return $this;
+    }
+    public function getNbPlace(): ?int
+    {
+        return $this->nbPlace;
+    }
+
+    public function setNbPlace(int $nbPlace): self
+    {
+        $this->nbPlace = $nbPlace;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom;
     }
 }

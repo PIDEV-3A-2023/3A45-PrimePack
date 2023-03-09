@@ -1,0 +1,27 @@
+<h1>Liste des produit</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+                <th>Categorie</th>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Stock</th>
+                <th>Disponibilite</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                 <td>{{ produit.id }}</td>
+                <td>{{ produit.categorie.nom }}</td>
+
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.stock }}</td>
+                <td>{{ produit.disponibilite  }}</td>
+               
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

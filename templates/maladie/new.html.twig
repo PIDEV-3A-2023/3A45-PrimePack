@@ -1,4 +1,4 @@
-{% extends 'front/base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 {% block title %}New Maladie{% endblock %}
 
@@ -7,5 +7,7 @@
 
     {{ include('maladie/_form.html.twig') }}
 
-    <a href="{{ path('app_maladie_index') }}">back to list</a>
+    <a href="{{ path('app_maladie_index') }}">Back</a>
 {% endblock %}
+
+
